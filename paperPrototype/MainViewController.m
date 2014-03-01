@@ -10,6 +10,7 @@
 
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+- (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
 
@@ -27,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     
     UIView *container = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:container];
@@ -48,14 +50,28 @@
 //    scrollingStories.contentSize=CGSizeMake(1447,254);
     [container addSubview:self.scrollView];
     self.scrollView.contentSize = CGSizeMake(1447, 254);
-
-
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
+    [container addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint point = [panGestureRecognizer locationInView:self.view];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"Gesture began at: %@", NSStringFromCGPoint(point));
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
+    }
 }
 
 @end
