@@ -11,7 +11,7 @@
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIView *container;
-//@property (nonatomic, strong) CGPoint *startingPoint;
+@property (nonatomic, assign) CGPoint *startingPoint;
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
@@ -80,7 +80,7 @@
         
         
         CGRect movingPosition = self.container.frame;
-        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+point.y);
+        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+(point.y));
         self.container.frame = movingPosition;
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
