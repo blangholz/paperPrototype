@@ -11,7 +11,8 @@
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIView *container;
-@property (nonatomic, assign) CGPoint *startingPoint;
+@property (nonatomic) float panStartingYPoint;
+@property (nonatomic) float containerStartingYPoint;
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
@@ -56,7 +57,10 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.container addGestureRecognizer:panGestureRecognizer];
     
-    NSLog(@"Start Point = %@", self.container);
+    NSLog(@"Starting container = %@", self.container);
+    
+    self.containerStartingYPoint = self.container.center.y;
+    NSLog(@"Starting Y Point from Center = %f", self.containerStartingYPoint);
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,16 +76,18 @@
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         NSLog(@"Gesture began at: %@", NSStringFromCGPoint(point));
         
-        CGPoint startingPoint = [panGestureRecognizer locationInView:self.view];
-        NSLog(@"StartingPoint: %@", NSStringFromCGPoint(startingPoint));
+        self.panStartingYPoint = point.y;
+        NSLog(@"Pan Starting Y Point = %f", self.panStartingYPoint);
 
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
         
-        
         CGRect movingPosition = self.container.frame;
-        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+(point.y));
+        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+(point.y-self.panStartingYPoint));
         self.container.frame = movingPosition;
+        
+        NSLog(@"movingPosition = %@", NSStringFromCGRect(movingPosition));
+        
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
     }
