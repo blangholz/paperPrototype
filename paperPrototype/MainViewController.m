@@ -10,6 +10,8 @@
 
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UIView *container;
+//@property (nonatomic, strong) CGPoint *startingPoint;
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
@@ -30,12 +32,12 @@
     [super viewDidLoad];
     
     
-    UIView *container = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:container];
+    self.container = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.container];
     
     UIImage *misoHeadline = [UIImage imageNamed:@"paperHeadline"];
     UIImageView *headline = [[UIImageView alloc] initWithImage:misoHeadline];
-    [container addSubview:headline];
+    [self.container addSubview:headline];
 
 //    UIScrollView *scrollingStories =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 254)];
 //    [self.view addSubview:scrollingStories];
@@ -48,11 +50,13 @@
 //    scrollingStories.clipsToBounds = NO;
 //    
 //    scrollingStories.contentSize=CGSizeMake(1447,254);
-    [container addSubview:self.scrollView];
+    [self.container addSubview:self.scrollView];
     self.scrollView.contentSize = CGSizeMake(1447, 254);
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
-    [container addGestureRecognizer:panGestureRecognizer];
+    [self.container addGestureRecognizer:panGestureRecognizer];
+    
+    NSLog(@"Start Point = %@", self.container);
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,8 +71,17 @@
     
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         NSLog(@"Gesture began at: %@", NSStringFromCGPoint(point));
+        
+        CGPoint startingPoint = [panGestureRecognizer locationInView:self.view];
+        NSLog(@"StartingPoint: %@", NSStringFromCGPoint(startingPoint));
+
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
+        
+        
+        CGRect movingPosition = self.container.frame;
+        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+point.y);
+        self.container.frame = movingPosition;
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
     }
