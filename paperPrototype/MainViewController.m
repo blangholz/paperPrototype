@@ -82,10 +82,16 @@
 
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         //pan current possition - pan starting position = container position
-        NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
+        NSLog(@"Gesture changed: %@ Velocity changed: %@", NSStringFromCGPoint(point), NSStringFromCGPoint(velocity));
         
         float difference = (point.y-self.panStartingYPoint);
         NSLog(@"difference: %f", difference);
+        
+        self.container.frame = CGRectMake(0, difference, 320, 1136/2);
+        
+        if (difference < 0) {
+            self.container.frame = CGRectMake(0, 0, 320, 1136/2);
+        }
 
         
         
@@ -97,7 +103,16 @@
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //if velocity positive go up if velvocity negitive go down
-        NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
+        NSLog(@"Gesture ended: %@, Velocity end: %@", NSStringFromCGPoint(point), NSStringFromCGPoint(velocity));
+        
+        if (NSStringFromCGPoint(velocity) < 0) {
+//            self.container.frame = CGRectMake(0, 0, 320, 1136/2);
+        } else if (NSStringFromCGPoint(velocity) > 0) {
+                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                    self.container.frame = CGRectMake(0, 300, 320, 1136/2);
+            } completion:nil];
+        }
+        
     }
 }
 
