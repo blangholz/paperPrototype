@@ -57,7 +57,7 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.container addGestureRecognizer:panGestureRecognizer];
     
-    NSLog(@"Starting container = %@", self.container);
+//    NSLog(@"Starting container = %@", self.container);
     
     self.containerStartingYPoint = self.container.center.y;
     NSLog(@"Starting Y Point from Center = %f", self.containerStartingYPoint);
@@ -82,13 +82,18 @@
 
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         //pan current possition - pan starting position = container position
-        NSLog(@"Gesture changed: %@ Velocity: %@", NSStringFromCGPoint(point), NSStringFromCGPoint(velocity));
+        NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
         
-        CGRect movingPosition = self.container.frame;
-        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+((point.y-self.panStartingYPoint)/10));
-        self.container.frame = movingPosition;
+        float difference = (point.y-self.panStartingYPoint);
+        NSLog(@"difference: %f", difference);
+
         
-        NSLog(@"movingPosition = %@", NSStringFromCGRect(movingPosition));
+        
+//        CGRect movingPosition = self.container.frame;
+//        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+((point.y-self.panStartingYPoint)/10));
+//        self.container.frame = movingPosition;
+//        
+//        NSLog(@"movingPosition = %@", NSStringFromCGRect(movingPosition));
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //if velocity positive go up if velvocity negitive go down
