@@ -11,7 +11,9 @@
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIView *container;
+@property (nonatomic, strong) IBOutlet UIView *blackBackground;
 @property (nonatomic) float panStartingYPoint;
+@property (nonatomic) float alphaZeroToOne;
 @property (nonatomic) float containerStartingYPoint;
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
@@ -32,6 +34,9 @@
 {
     [super viewDidLoad];
     
+    self.blackBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1136/2)];
+    self.blackBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    [self.view addSubview:self.blackBackground];
     
     self.container = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.container];
@@ -40,27 +45,15 @@
     UIImageView *headline = [[UIImageView alloc] initWithImage:misoHeadline];
     [self.container addSubview:headline];
 
-//    UIScrollView *scrollingStories =[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 254)];
-//    [self.view addSubview:scrollingStories];
-//
-//    UIImage *paperStoies = [UIImage imageNamed:@"paperStories"];
-//    UIImageView *stories = [[UIImageView alloc] initWithImage:paperStoies];
-//    [scrollingStories setFrame:CGRectMake(0, 0, 1447, 254)];
-//    [scrollingStories addSubview:stories];
-//    
-//    scrollingStories.clipsToBounds = NO;
-//    
-//    scrollingStories.contentSize=CGSizeMake(1447,254);
     [self.container addSubview:self.scrollView];
     self.scrollView.contentSize = CGSizeMake(1447, 254);
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.container addGestureRecognizer:panGestureRecognizer];
     
-//    NSLog(@"Starting container = %@", self.container);
-    
     self.containerStartingYPoint = self.container.center.y;
     NSLog(@"Starting Y Point from Center = %f", self.containerStartingYPoint);
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,6 +65,7 @@
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint point = [panGestureRecognizer locationInView:self.view];
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    float velocityY = velocity.y;
     
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         //figure out where the pangesture started
@@ -82,7 +76,7 @@
 
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         //pan current possition - pan starting position = container position
-        NSLog(@"Gesture changed: %@ Velocity changed: %@", NSStringFromCGPoint(point), NSStringFromCGPoint(velocity));
+//        NSLog(@"Gesture changed: %@ Velocity changed: %@", NSStringFromCGPoint(point), NSStringFromCGPoint(velocity));
         
         float difference = (point.y-self.panStartingYPoint);
         NSLog(@"difference: %f", difference);
@@ -92,24 +86,25 @@
         if (difference < 0) {
             self.container.frame = CGRectMake(0, 0, 320, 1136/2);
         }
-
         
+        NSLog(@"0-1 for alpha %f",((self.container.frame.origin.y/521)-1)*-1);
         
-//        CGRect movingPosition = self.container.frame;
-//        movingPosition.origin = CGPointMake(movingPosition.origin.x, movingPosition.origin.y+((point.y-self.panStartingYPoint)/10));
-//        self.container.frame = movingPosition;
-//        
-//        NSLog(@"movingPosition = %@", NSStringFromCGRect(movingPosition));
+        self.alphaZeroToOne = ((self.container.frame.origin.y/521)-1)*-1;
+        
+        self.blackBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:self.alphaZeroToOne];
+        
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //if velocity positive go up if velvocity negitive go down
-        NSLog(@"Gesture ended: %@, Velocity end: %@", NSStringFromCGPoint(point), NSStringFromCGPoint(velocity));
+        NSLog(@"Gesture ended: %@, Velocity y: %f", NSStringFromCGPoint(point), velocityY);
         
-        if (NSStringFromCGPoint(velocity) < 0) {
-//            self.container.frame = CGRectMake(0, 0, 320, 1136/2);
-        } else if (NSStringFromCGPoint(velocity) > 0) {
-                [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                    self.container.frame = CGRectMake(0, 300, 320, 1136/2);
+        if (velocityY < 0) {
+            [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.container.frame = CGRectMake(0, 0, 320, 1136/2);
+            } completion:nil];
+        } else if (velocityY > 0) {
+            [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.container.frame = CGRectMake(0, 521, 320, 1136/2);
             } completion:nil];
         }
         
