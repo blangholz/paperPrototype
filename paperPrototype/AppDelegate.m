@@ -18,6 +18,8 @@
     MainViewController *mainViewController = [[MainViewController alloc] init];
     self.window.rootViewController = mainViewController;
     
+    [UIApplication sharedApplication].statusBarHidden = YES;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

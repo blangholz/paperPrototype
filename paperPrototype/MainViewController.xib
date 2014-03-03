@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="profileBackground" destination="EyJ-CN-Hv0" id="Alr-bx-EaH"/>
                 <outlet property="scrollView" destination="jjr-qY-2Zy" id="OmQ-TO-x2a"/>
+                <outlet property="stories" destination="GTo-JU-4Pc" id="I8T-mW-cyD"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -32,7 +33,6 @@
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
