@@ -17,8 +17,11 @@
 @property (nonatomic) float alphaZeroToOne;
 @property (nonatomic) float containerStartingYPoint;
 @property (weak, nonatomic) IBOutlet UIImageView *stories;
+
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 - (void)onScrollPan:(UIPanGestureRecognizer *)scrollPanGestureRecognizer;
+- (void)onPanNews:(UIPanGestureRecognizer *)newsPanGestureRecognizer;
+
 
 @end
 
@@ -67,6 +70,10 @@
     UIPanGestureRecognizer *scrollPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onScrollPan:)];
     [self.stories addGestureRecognizer:scrollPanGestureRecognizer];
     
+    //Scroll vs pan
+//    UIPanGestureRecognizer *newsPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanNews:)];newsPanGestureRecognizer.delegate = self;
+//    [self.scrollView addGestureRecognizer:newsPanGestureRecognizer];
+//    
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,17 +143,29 @@
     }
 }
 
-- (void)onScrollPan:(UIPanGestureRecognizer *)scrollPanGestureRecognizer {
-    CGPoint point = [scrollPanGestureRecognizer locationInView:self.view];
-    CGPoint velocity = [scrollPanGestureRecognizer velocityInView:self.view];
-    
-    if (scrollPanGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"Gesture began at: %@", NSStringFromCGPoint(point));
-    } else if (scrollPanGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
-    } else if (scrollPanGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
-    }
+//- (void)onScrollPan:(UIPanGestureRecognizer *)scrollPanGestureRecognizer {
+//    CGPoint point = [scrollPanGestureRecognizer locationInView:self.view];
+//    CGPoint velocity = [scrollPanGestureRecognizer velocityInView:self.view];
+//    
+//    if (scrollPanGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+//        NSLog(@"Gesture began at: %@", NSStringFromCGPoint(point));
+//    } else if (scrollPanGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+//        NSLog(@"Gesture changed: %@", NSStringFromCGPoint(point));
+//    } else if (scrollPanGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+//        NSLog(@"Gesture ended: %@", NSStringFromCGPoint(point));
+//    }
+//}
+
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    if (otherGestureRecognizer == self.scrollView.panGestureRecognizer) {
+//        return YES;
+//    }
+//    return NO;
+//}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 @end
