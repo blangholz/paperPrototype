@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 
 @interface MainViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIView *container;
 @property (nonatomic, strong) IBOutlet UIView *blackBackground;
@@ -51,9 +52,6 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomPan:)];
     [self.container addGestureRecognizer:panGestureRecognizer];
     
-    self.containerStartingYPoint = self.container.center.y;
-    NSLog(@"Starting Y Point from Center = %f", self.containerStartingYPoint);
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,8 +69,11 @@
         //figure out where the pangesture started
         NSLog(@"Gesture began at: %@", NSStringFromCGPoint(point));
         
+        self.containerStartingYPoint = self.container.frame.origin.y;
+        NSLog(@"Frame Began = %f", self.containerStartingYPoint);
+        
         self.panStartingYPoint = point.y;
-        NSLog(@"Pan Starting Y Point = %f", self.panStartingYPoint);
+//        NSLog(@"Pan Starting Y Point = %f", self.panStartingYPoint);
 
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         //pan current possition - pan starting position = container position
@@ -81,30 +82,35 @@
         float difference = (point.y-self.panStartingYPoint);
         NSLog(@"difference: %f", difference);
         
-        self.container.frame = CGRectMake(0, difference, 320, 1136/2);
+        self.container.frame = CGRectMake(0, difference+self.containerStartingYPoint, 320, 1136/2);
+//      converting number x from range a-b to number y in range c-d
+        float frictionedScroll = (-10) + ((difference)-(-100))/(0-(-100)) * (0-(-10));
         
-        if (difference < 0) {
-            self.container.frame = CGRectMake(0, 0, 320, 1136/2);
+        
+        if (difference+self.containerStartingYPoint < 0) {
+            self.container.frame = CGRectMake(0, frictionedScroll, 320, 1136/2);
+            NSLog(@"Scrolling up!");
         }
         
-        NSLog(@"0-1 for alpha %f",((self.container.frame.origin.y/521)-1)*-1);
-        
-        self.alphaZeroToOne = ((self.container.frame.origin.y/521)-1)*-1;
-        
+//      NSLog(@"0-1 for alpha formula %f",(1 + (self.container.frame.origin.y-0)/(512-0) * (0-1)));
+        self.alphaZeroToOne = (1 + (self.container.frame.origin.y-0)/(512-0) * (0-1));
         self.blackBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:self.alphaZeroToOne];
         
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //if velocity positive go up if velvocity negitive go down
-        NSLog(@"Gesture ended: %@, Velocity y: %f", NSStringFromCGPoint(point), velocityY);
+        NSLog(@"Gesture ended: %f, Velocity y: %f", point.y, velocityY);
         
         if (velocityY < 0) {
             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.container.frame = CGRectMake(0, 0, 320, 1136/2);
+                self.blackBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+//                self.profileBackground.frame = CGRectMake(0, 0, 320- (320*.05), (1136/2)-((1136/2)*.05));
             } completion:nil];
         } else if (velocityY > 0) {
             [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.container.frame = CGRectMake(0, 521, 320, 1136/2);
+                self.blackBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
             } completion:nil];
         }
         
