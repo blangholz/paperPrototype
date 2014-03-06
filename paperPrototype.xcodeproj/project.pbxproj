@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A2B356918C839D4002F2CE0 /* feedStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2B356718C839D4002F2CE0 /* feedStoreViewController.m */; };
+		4A2B356A18C839D4002F2CE0 /* feedStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A2B356818C839D4002F2CE0 /* feedStoreViewController.xib */; };
 		4A81738B18C2837A00035273 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A81738A18C2837A00035273 /* Foundation.framework */; };
 		4A81738D18C2837A00035273 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A81738C18C2837A00035273 /* CoreGraphics.framework */; };
 		4A81738F18C2837A00035273 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A81738E18C2837A00035273 /* UIKit.framework */; };
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A2B356618C839D4002F2CE0 /* feedStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = feedStoreViewController.h; path = ../feedStoreViewController.h; sourceTree = "<group>"; };
+		4A2B356718C839D4002F2CE0 /* feedStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = feedStoreViewController.m; path = ../feedStoreViewController.m; sourceTree = "<group>"; };
+		4A2B356818C839D4002F2CE0 /* feedStoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = feedStoreViewController.xib; path = ../feedStoreViewController.xib; sourceTree = "<group>"; };
 		4A81738718C2837A00035273 /* paperPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paperPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A81738A18C2837A00035273 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4A81738C18C2837A00035273 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,6 +124,9 @@
 				4A8173B918C283B100035273 /* MainViewController.h */,
 				4A8173BA18C283B100035273 /* MainViewController.m */,
 				4A8173BB18C283B100035273 /* MainViewController.xib */,
+				4A2B356618C839D4002F2CE0 /* feedStoreViewController.h */,
+				4A2B356718C839D4002F2CE0 /* feedStoreViewController.m */,
+				4A2B356818C839D4002F2CE0 /* feedStoreViewController.xib */,
 			);
 			path = paperPrototype;
 			sourceTree = "<group>";
@@ -227,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A2B356A18C839D4002F2CE0 /* feedStoreViewController.xib in Resources */,
 				4A81739518C2837A00035273 /* InfoPlist.strings in Resources */,
 				4A8173BD18C283B100035273 /* MainViewController.xib in Resources */,
 				4A81739D18C2837A00035273 /* Images.xcassets in Resources */,
@@ -248,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A2B356918C839D4002F2CE0 /* feedStoreViewController.m in Sources */,
 				4A81739B18C2837A00035273 /* AppDelegate.m in Sources */,
 				4A8173BC18C283B100035273 /* MainViewController.m in Sources */,
 				4A81739718C2837A00035273 /* main.m in Sources */,

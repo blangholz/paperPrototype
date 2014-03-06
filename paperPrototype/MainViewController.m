@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "feedStoreViewController.h"
 
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profileBackground;
@@ -17,6 +18,9 @@
 @property (nonatomic) float alphaZeroToOne;
 @property (nonatomic) float containerStartingYPoint;
 @property (weak, nonatomic) IBOutlet UIImageView *stories;
+@property (nonatomic, strong) feedStoreViewController *feedViewController;
+- (IBAction)editSectionButton:(id)sender;
+- (IBAction)tapNextViewButton:(id)sender;
 
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 - (void)onScrollPan:(UIPanGestureRecognizer *)scrollPanGestureRecognizer;
@@ -48,6 +52,13 @@
     
     self.container = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.container];
+    
+    UIButton *nextViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    nextViewButton.frame = CGRectMake(10, 100, 40, 40);
+    [nextViewButton setTitle:@"Test" forState:UIControlStateNormal];
+    [nextViewButton addTarget:self action:@selector(tapNextViewButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:nextViewButton];
     
     //Images for headline
 //    NSArray *misoHeadline = [NSArray arrayWithObjects:
@@ -81,6 +92,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)onCustomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint point = [panGestureRecognizer locationInView:self.view];
@@ -167,5 +179,12 @@
 {
     return YES;
 }
+
+- (IBAction)tapNextViewButton:(id)sender {
+    NSLog(@"test");
+    self.feedViewController = [[feedStoreViewController alloc] init];
+    [self.navigationController pushViewController:self.feedViewController animated:YES];
+}
+
 
 @end
