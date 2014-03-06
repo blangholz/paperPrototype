@@ -6,6 +6,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="feedStoreViewController">
             <connections>
+                <outlet property="allCityCard" destination="6lj-Gb-WL3" id="3Iq-Yp-yH5"/>
+                <outlet property="cuteCard" destination="LkE-Q7-uI9" id="jUH-tl-p77"/>
+                <outlet property="cuteCardView" destination="F3U-Wy-cR7" id="sVW-Nj-V8h"/>
+                <outlet property="dragHereTarget" destination="fUS-4l-ark" id="j5F-9R-zpn"/>
+                <outlet property="testButton" destination="P8q-D8-kQg" id="6qM-Ka-iDr"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -22,14 +27,28 @@
                     <rect key="frame" x="83" y="54" width="155" height="257"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cuteCardLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LkE-Q7-uI9">
-                    <rect key="frame" x="72" y="297" width="153" height="271"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F3U-Wy-cR7">
+                    <rect key="frame" x="61" y="291" width="153" height="271"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cuteCardLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LkE-Q7-uI9">
+                            <rect key="frame" x="0.0" y="0.0" width="153" height="271"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="allCityLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6lj-Gb-WL3">
                     <rect key="frame" x="95" y="68" width="130" height="230"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8q-D8-kQg">
+                    <rect key="frame" x="246" y="230" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
