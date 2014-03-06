@@ -16,8 +16,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     MainViewController *mainViewController = [[MainViewController alloc] init];
-    self.window.rootViewController = mainViewController;
-    
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:mainViewController];
+    [navigationController setNavigationBarHidden:YES animated:NO];
+    self.window.rootViewController = navigationController;
+        
     [UIApplication sharedApplication].statusBarHidden = YES;
     
     self.window.backgroundColor = [UIColor whiteColor];
