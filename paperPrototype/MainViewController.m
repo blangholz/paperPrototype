@@ -60,6 +60,7 @@
     
     [self.view addSubview:nextViewButton];
     
+    
     //Images for headline
 //    NSArray *misoHeadline = [NSArray arrayWithObjects:
 //                             [UIImage imageNamed:@"paperHeadline"],
@@ -183,7 +184,13 @@
 - (IBAction)tapNextViewButton:(id)sender {
     NSLog(@"test");
     self.feedViewController = [[feedStoreViewController alloc] init];
-    [self.navigationController pushViewController:self.feedViewController animated:YES];
+//    self.feedViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical; // Rises from below
+    
+    // self.feedViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve; // Fade
+    // self.feedViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal; // Flip
+    // self.feedViewController.modalTransitionStyle = UIModalTransitionStylePartialCurl; // Curl
+    
+    [self presentViewController:self.feedViewController animated:YES completion:nil];
 }
 
 

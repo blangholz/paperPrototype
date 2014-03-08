@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *cuteCardView;
 @property (nonatomic, assign) CGPoint cuteCardStartingPoint;
 @property (nonatomic, assign) CGPoint allCityCardStartingPoint;
+- (IBAction)onDoneButton:(id)sender;
 
 
 -(void)onLongPressGesture:(UILongPressGestureRecognizer *)longPressGestureRecognizer;
@@ -36,6 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.cuteCard.userInteractionEnabled = YES;
+
     [self.cuteCardView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressGesture:)]];
     self.cuteCardStartingPoint = self.cuteCardView.center;
     self.allCityCardStartingPoint = self.allCityCard.center;
@@ -49,6 +53,15 @@
 }
 
 #pragma mark - Private methods
+
+- (IBAction)onDoneButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;	
+}
 
 - (void)onLongPressGesture:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
     CGPoint fingerPosisiton = [longPressGestureRecognizer locationInView:self.view];
