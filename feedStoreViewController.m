@@ -119,8 +119,8 @@
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //if point in target animate to target and keep all city to the left
         //if if point outside target animate to origin and animate all city back to origin
-        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            self.allCityCard.transform = CGAffineTransformMakeRotation(0);
+        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.allCityCard.transform = CGAffineTransformMakeRotation(0);
             self.cuteCard.transform = CGAffineTransformMakeScale(1, 1);
             if (fingerPosisiton.y < 315) {
                 self.cuteCardView.center = CGPointMake(160, 203);
@@ -130,8 +130,9 @@
                 self.allCityCardView.center = self.allCityCardStartingPoint;
             }
         } completion:nil];
-        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
-        } completion:nil];
+//        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
+//            self.allCityCard.transform = CGAffineTransformMakeRotation(( 0 ) / 180.0 * M_PI );
+//        } completion:nil];
     }
 }
 
