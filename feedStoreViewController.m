@@ -100,13 +100,16 @@
         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.cuteCardView.center = fingerPosisiton;
             self.allCityCardView.center = CGPointMake(18, self.allCityCardStartingPoint.y);
-            self.cuteCardView.transform = CGAffineTransformMakeScale(1.1, 1.1);
-//            self.cuteCardView.frame = cgrect
+            self.cuteCard.transform = CGAffineTransformMakeScale(1.1, 1.1);
         } completion:nil];
-        
-        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionRepeat animations:^{
-//            self.allCityCard.transform = CGAffineTransformMakeRotation(M_PI_2 / 90 * 15);
-        } completion:nil];
+
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.allCityCard.transform = CGAffineTransformMakeRotation(( -2 ) / 180.0 * M_PI );
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState animations:^{
+                self.allCityCard.transform = CGAffineTransformMakeRotation(( 4 ) / 180.0 * M_PI );
+            } completion:nil];
+        }];
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         
@@ -117,8 +120,8 @@
         //if point in target animate to target and keep all city to the left
         //if if point outside target animate to origin and animate all city back to origin
         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.allCityCard.transform = CGAffineTransformMakeRotation(0);
-            self.cuteCardView.transform = CGAffineTransformMakeScale(1, 1);
+//            self.allCityCard.transform = CGAffineTransformMakeRotation(0);
+            self.cuteCard.transform = CGAffineTransformMakeScale(1, 1);
             if (fingerPosisiton.y < 315) {
                 self.cuteCardView.center = CGPointMake(160, 203);
                 self.allCityCardView.center = CGPointMake(18, self.allCityCardStartingPoint.y);
@@ -126,6 +129,8 @@
                 self.cuteCardView.center = self.cuteCardStartingPoint;
                 self.allCityCardView.center = self.allCityCardStartingPoint;
             }
+        } completion:nil];
+        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
         } completion:nil];
     }
 }
