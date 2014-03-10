@@ -51,9 +51,10 @@
     [self.view addSubview:self.blackBackground];
     
     UIButton *nextViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    nextViewButton.frame = CGRectMake(104, 330, 200, 40);
+    nextViewButton.frame = CGRectMake(60, 330, 200, 40);
     [nextViewButton setTitle:@"Edit Sections" forState:UIControlStateNormal];
-    nextViewButton.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:22.0f];
+//    nextViewButton.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:22.0f];
+    [nextViewButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0] forState:UIControlStateNormal];
     [nextViewButton addTarget:self action:@selector(tapNextViewButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextViewButton];
     
