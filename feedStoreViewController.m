@@ -12,14 +12,17 @@
 @property (weak, nonatomic) IBOutlet UIImageView *cuteCard;
 @property (weak, nonatomic) IBOutlet UIImageView *allCityCard;
 @property (weak, nonatomic) IBOutlet UIImageView *dragHereTarget;
+@property (weak, nonatomic) IBOutlet UIView *allCityCardView;
 @property (weak, nonatomic) IBOutlet UIButton *testButton;
 @property (weak, nonatomic) IBOutlet UIView *cuteCardView;
 @property (nonatomic, assign) CGPoint cuteCardStartingPoint;
 @property (nonatomic, assign) CGPoint allCityCardStartingPoint;
+@property (nonatomic, assign) float sizeRatio;
+@property (weak, nonatomic) IBOutlet UIView *testView;
 - (IBAction)onDoneButton:(id)sender;
 
-
--(void)onLongPressGesture:(UILongPressGestureRecognizer *)longPressGestureRecognizer;
+- (void)onPanGestureRecgonizer:(UIPanGestureRecognizer *)panGestureRecognizer;
+- (void)onDoubleTap:(UITapGestureRecognizer *)tapGestureRecognizer;
 
 @end
 
@@ -40,9 +43,19 @@
     
     self.cuteCard.userInteractionEnabled = YES;
 
-    [self.cuteCardView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressGesture:)]];
+    [self.cuteCardView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGestureRecgonizer:)]];
+
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
+    tapGestureRecognizer.numberOfTapsRequired = 2;
+    [self.cuteCardView addGestureRecognizer:tapGestureRecognizer];
+    
     self.cuteCardStartingPoint = self.cuteCardView.center;
-    self.allCityCardStartingPoint = self.allCityCard.center;
+    self.allCityCardStartingPoint = self.allCityCardView.center;
+    
+    self.sizeRatio = self.allCityCardView.frame.size.width/self.cuteCardView.frame.size.width;
+    
+//    self.cuteCardView.transform = CGAffineTransformMakeScale(self.sizeRatio, self.sizeRatio);
+
 
 }
 
@@ -63,34 +76,61 @@
     return YES;	
 }
 
-- (void)onLongPressGesture:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
-    CGPoint fingerPosisiton = [longPressGestureRecognizer locationInView:self.view];
+- (void)onDoubleTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    CGPoint point = [tapGestureRecognizer locationInView:self.view];
+    if (self.cuteCardView.center.y > 500) {
+        NSLog(@"Tap!");
+        [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.cuteCardView.center = CGPointMake(160, 203);
+        } completion:nil];
+        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.allCityCardView.center = CGPointMake(18, self.allCityCardStartingPoint.y);
+        } completion:nil];
+    }
+}
+
+- (void)onPanGestureRecgonizer:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint fingerPosisiton = [panGestureRecognizer locationInView:self.view];
 //    NSLog(@"Long pressed!");
 
-    if (longPressGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        //Animate to point
-        //Move all city card over to show drag point
-        //start wiggling cards
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        //X Animate to point
+        //X Move all city card over to show drag point
+        //X start wiggling cards
         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.cuteCardView.center = fingerPosisiton;
+            self.allCityCardView.center = CGPointMake(18, self.allCityCardStartingPoint.y);
+            self.cuteCardView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+//            self.cuteCardView.frame = cgrect
         } completion:nil];
         
-    } else if (longPressGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionRepeat animations:^{
+//            self.allCityCard.transform = CGAffineTransformMakeRotation(M_PI_2 / 90 * 15);
+        } completion:nil];
+        
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         
         self.cuteCardView.center = fingerPosisiton;
         NSLog(@"Pont is at %@", NSStringFromCGPoint(fingerPosisiton));
         
-    } else if (longPressGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //if point in target animate to target and keep all city to the left
         //if if point outside target animate to origin and animate all city back to origin
         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.allCityCard.transform = CGAffineTransformMakeRotation(0);
+            self.cuteCardView.transform = CGAffineTransformMakeScale(1, 1);
             if (fingerPosisiton.y < 315) {
-                self.cuteCardView.center = self.allCityCardStartingPoint;
+                self.cuteCardView.center = CGPointMake(160, 203);
+                self.allCityCardView.center = CGPointMake(18, self.allCityCardStartingPoint.y);
             } else if (fingerPosisiton.y > 315) {
                 self.cuteCardView.center = self.cuteCardStartingPoint;
+                self.allCityCardView.center = self.allCityCardStartingPoint;
             }
         } completion:nil];
     }
 }
+
+
+
 
 @end

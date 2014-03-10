@@ -50,16 +50,15 @@
     self.blackBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     [self.view addSubview:self.blackBackground];
     
-    self.container = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.container];
-    
     UIButton *nextViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    nextViewButton.frame = CGRectMake(10, 100, 40, 40);
-    [nextViewButton setTitle:@"Test" forState:UIControlStateNormal];
+    nextViewButton.frame = CGRectMake(104, 330, 200, 40);
+    [nextViewButton setTitle:@"Edit Sections" forState:UIControlStateNormal];
+    nextViewButton.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:22.0f];
     [nextViewButton addTarget:self action:@selector(tapNextViewButton:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:nextViewButton];
     
+    self.container = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.container];
     
     //Images for headline
 //    NSArray *misoHeadline = [NSArray arrayWithObjects:

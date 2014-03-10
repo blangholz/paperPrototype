@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="feedStoreViewController">
             <connections>
                 <outlet property="allCityCard" destination="6lj-Gb-WL3" id="3Iq-Yp-yH5"/>
+                <outlet property="allCityCardView" destination="i3z-3B-b1n" id="LWZ-mU-eT1"/>
                 <outlet property="cuteCard" destination="LkE-Q7-uI9" id="jUH-tl-p77"/>
                 <outlet property="cuteCardView" destination="F3U-Wy-cR7" id="sVW-Nj-V8h"/>
                 <outlet property="dragHereTarget" destination="fUS-4l-ark" id="j5F-9R-zpn"/>
@@ -32,26 +33,35 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cuteCardLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LkE-Q7-uI9">
-                            <rect key="frame" x="0.0" y="0.0" width="153" height="271"/>
+                            <rect key="frame" x="11" y="0.0" width="130" height="230"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="allCityLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6lj-Gb-WL3">
-                    <rect key="frame" x="95" y="68" width="130" height="230"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8q-D8-kQg">
-                    <rect key="frame" x="263" y="10" width="37" height="30"/>
+                    <rect key="frame" x="251" y="10" width="64" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="Done">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="0.02" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onDoneButton:" destination="-1" eventType="touchUpInside" id="lpZ-Yc-6V8"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3z-3B-b1n" userLabel="allCityView">
+                    <rect key="frame" x="95" y="68" width="129" height="230"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="allCityLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6lj-Gb-WL3">
+                            <rect key="frame" x="-1" y="0.0" width="130" height="230"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
