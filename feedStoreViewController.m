@@ -117,6 +117,7 @@
         NSLog(@"Pont is at %@", NSStringFromCGPoint(fingerPosisiton));
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        [self.allCityCard.layer removeAllAnimations];
         //if point in target animate to target and keep all city to the left
         //if if point outside target animate to origin and animate all city back to origin
         [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
