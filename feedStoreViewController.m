@@ -130,9 +130,6 @@
                 self.allCityCardView.center = self.allCityCardStartingPoint;
             }
         } completion:nil];
-//        [UIView animateWithDuration:.2 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
-//            self.allCityCard.transform = CGAffineTransformMakeRotation(( 0 ) / 180.0 * M_PI );
-//        } completion:nil];
     }
 }
 
